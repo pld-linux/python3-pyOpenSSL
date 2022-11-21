@@ -24,7 +24,8 @@ BuildRequires:	glibc-localedb-all
 BuildRequires:	python3-devel >= 1:3.6
 BuildRequires:	python3-setuptools
 %if %{with tests}
-BuildRequires:	python3-cryptography >= 2.8
+BuildRequires:	python3-cryptography >= 38.0.0
+BuildRequires:	python3-cryptography < 39
 BuildRequires:	python3-flaky
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
@@ -84,6 +85,7 @@ PYTHONPATH=$(pwd)/build-3/lib \
 %endif
 
 %if %{with doc}
+PYTHONPATH=$(pwd)/build-3/lib \
 %{__make} -C doc html \
 	SPHINXBUILD=sphinx-build-3
 %endif
