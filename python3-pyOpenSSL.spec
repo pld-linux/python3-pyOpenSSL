@@ -1,7 +1,6 @@
-# TODO: check why disabled tests fail and reenable them
 #
 # Conditional build:
-%bcond_with	tests	# unit tests (seem not ready for openssl 3)
+%bcond_without	tests	# unit tests
 %bcond_without	python2	# CPython 2.x module
 %bcond_without	python3	# CPython 3.x module
 %bcond_without	doc	# HTML documentation (sphinx-based)
@@ -25,11 +24,10 @@ BuildRequires:	python3-devel >= 1:3.6
 BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-cryptography >= 38.0.0
-BuildRequires:	python3-cryptography < 39
+BuildRequires:	python3-cryptography < 42
 BuildRequires:	python3-flaky
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
-BuildRequires:	python3-six >= 1.5.2
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -79,9 +77,10 @@ Dokumentacja API modułu Pythona pyOpenSSL.
 %py3_build
 
 %if %{with tests}
+# test_verify_with_time test fails with 32-bit time_t(?)
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTHONPATH=$(pwd)/build-3/lib \
-%{__python3} -m pytest -v tests
-#  -k 'not test_verify_with_time not test_alpn_call_failure'
+%{__python3} -m pytest -v tests -k 'not test_verify_with_time'
 %endif
 
 %if %{with doc}
