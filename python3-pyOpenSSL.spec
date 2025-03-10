@@ -10,7 +10,7 @@ Summary:	Python 3 interface to the OpenSSL library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki OpenSSL
 Name:		python3-%{module}
 Version:	23.2.0
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyopenssl/
