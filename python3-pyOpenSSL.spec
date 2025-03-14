@@ -9,13 +9,13 @@
 Summary:	Python 3 interface to the OpenSSL library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki OpenSSL
 Name:		python3-%{module}
-Version:	23.2.0
-Release:	3
+Version:	25.0.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyopenssl/
-Source0:	https://files.pythonhosted.org/packages/source/p/pyOpenSSL/%{module}-%{version}.tar.gz
-# Source0-md5:	4d716d7cd3d5fe6906b0d1f7536c9f83
+Source0:	https://files.pythonhosted.org/packages/source/p/pyopenssl/pyopenssl-%{version}.tar.gz
+# Source0-md5:	b5b79d0bab00c40160cf983ef7ac3771
 URL:		https://github.com/pyca/pyopenssl
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
@@ -25,9 +25,9 @@ BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-cryptography >= 38.0.0
 BuildRequires:	python3-cryptography < 42
-BuildRequires:	python3-flaky
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
+BuildRequires:	python3-pytest-rerunfailures
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -71,14 +71,13 @@ API documentation for Python pyOpenSSL module.
 Dokumentacja API modułu Pythona pyOpenSSL.
 
 %prep
-%setup -q -n %{module}-%{version}
+%setup -q -n pyopenssl-%{version}
 
 %build
 %py3_build
 
 %if %{with tests}
 # test_verify_with_time test fails with 32-bit time_t(?)
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTHONPATH=$(pwd)/build-3/lib \
 %{__python3} -m pytest -v tests -k 'not test_verify_with_time'
 %endif
