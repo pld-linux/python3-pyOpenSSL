@@ -100,9 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc CHANGELOG.rst README.rst
-%dir %{py3_sitescriptdir}/OpenSSL
-%{py3_sitescriptdir}/OpenSSL/*.py
-%{py3_sitescriptdir}/OpenSSL/__pycache__
+%{py3_sitescriptdir}/OpenSSL
 %{py3_sitescriptdir}/pyOpenSSL-%{version}-py*.egg-info
 
 %if %{with doc}
