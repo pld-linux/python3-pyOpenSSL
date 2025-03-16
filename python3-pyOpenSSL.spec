@@ -23,8 +23,8 @@ BuildRequires:	glibc-localedb-all
 BuildRequires:	python3-devel >= 1:3.6
 BuildRequires:	python3-setuptools
 %if %{with tests}
-BuildRequires:	python3-cryptography >= 38.0.0
-BuildRequires:	python3-cryptography < 42
+BuildRequires:	python3-cryptography >= 41.0.5
+BuildRequires:	python3-cryptography < 45
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
 BuildRequires:	python3-pytest-rerunfailures
