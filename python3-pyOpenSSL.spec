@@ -28,6 +28,7 @@ BuildRequires:	python3-cryptography < 45
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
 BuildRequires:	python3-pytest-rerunfailures
+BuildConflicts:	python3-flaky
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
