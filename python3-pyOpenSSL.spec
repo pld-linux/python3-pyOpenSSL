@@ -1,21 +1,19 @@
 #
 # Conditional build:
 %bcond_without	tests	# unit tests
-%bcond_without	python2	# CPython 2.x module
-%bcond_without	python3	# CPython 3.x module
 %bcond_without	doc	# HTML documentation (sphinx-based)
 
 %define		module	pyOpenSSL
 Summary:	Python 3 interface to the OpenSSL library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki OpenSSL
 Name:		python3-%{module}
-Version:	25.0.0
-Release:	2
+Version:	25.1.0
+Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyopenssl/
 Source0:	https://files.pythonhosted.org/packages/source/p/pyopenssl/pyopenssl-%{version}.tar.gz
-# Source0-md5:	b5b79d0bab00c40160cf983ef7ac3771
+# Source0-md5:	ed54c876e38a6f3525008f9054b32ac1
 URL:		https://github.com/pyca/pyopenssl
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
