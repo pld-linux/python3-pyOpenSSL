@@ -18,15 +18,17 @@ URL:		https://github.com/pyca/pyopenssl
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
-BuildRequires:	python3-devel >= 1:3.6
+BuildRequires:	python3-devel >= 1:3.7
 BuildRequires:	python3-setuptools
 %if %{with tests}
 BuildRequires:	python3-cryptography >= 41.0.5
-BuildRequires:	python3-cryptography < 45
+BuildRequires:	python3-cryptography < 46
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
 BuildRequires:	python3-pytest-rerunfailures
-BuildConflicts:	python3-flaky
+%if "%{py3_ver}" != "3.13"
+BuildRequires:	python3-typing_extensions >= 4.9
+%endif
 %endif
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -77,8 +79,19 @@ Dokumentacja API modułu Pythona pyOpenSSL.
 
 %if %{with tests}
 # test_verify_with_time test fails with 32-bit time_t(?)
+# the rest require localhost networking (not working with unshare --net)
+PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
+PYTEST_PLUGINS="pytest_rerunfailures" \
 PYTHONPATH=$(pwd)/build-3/lib \
-%{__python3} -m pytest -v tests -k 'not test_verify_with_time'
+%{__python3} -m pytest -v tests -k "\
+not test_verify_with_time \
+and not test_set_info_callback and not test_set_keylog_callback \
+and not test_set_proto_version \
+and not test_load_verify_bytes_cafile and not test_load_verify_unicode_cafile and not test_load_verify_directory_capath \
+and not test_set_verify_callback_exception and not test_set_verify_callback_reference and not test_set_verify_default_callback \
+and not test_add_extra_chain_cert and not test_use_certificate_chain_file_bytes and not test_use_certificate_chain_file_unicode \
+and not TestConnection and not TestConnectionRecvInto and not TestConnectionSendAll \
+and not test_socket_connect and not test_unexpected_EOF"
 %endif
 
 %if %{with doc}
