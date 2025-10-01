@@ -7,13 +7,13 @@
 Summary:	Python 3 interface to the OpenSSL library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki OpenSSL
 Name:		python3-%{module}
-Version:	25.1.0
+Version:	25.3.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyopenssl/
 Source0:	https://files.pythonhosted.org/packages/source/p/pyopenssl/pyopenssl-%{version}.tar.gz
-# Source0-md5:	ed54c876e38a6f3525008f9054b32ac1
+# Source0-md5:	d755732945157fb8ca98c2d66a55755d
 URL:		https://github.com/pyca/pyopenssl
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
