@@ -7,13 +7,13 @@
 Summary:	Python 3 interface to the OpenSSL library
 Summary(pl.UTF-8):	Interfejs Pythona 3 do biblioteki OpenSSL
 Name:		python3-%{module}
-Version:	25.3.0
+Version:	26.0.0
 Release:	1
 License:	Apache v2.0
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/pyopenssl/
 Source0:	https://files.pythonhosted.org/packages/source/p/pyopenssl/pyopenssl-%{version}.tar.gz
-# Source0-md5:	d755732945157fb8ca98c2d66a55755d
+# Source0-md5:	ff7074431f259d3d5f14b086dad101be
 URL:		https://github.com/pyca/pyopenssl
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
@@ -80,6 +80,7 @@ Dokumentacja API modułu Pythona pyOpenSSL.
 %if %{with tests}
 # test_verify_with_time test fails with 32-bit time_t(?)
 # the rest require localhost networking (not working with unshare --net)
+# test_client_receives_servers_data: OCSP stapling regression with OpenSSL >= 3.6
 PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 \
 PYTEST_PLUGINS="pytest_rerunfailures" \
 PYTHONPATH=$(pwd)/build-3/lib \
@@ -91,7 +92,8 @@ and not test_load_verify_bytes_cafile and not test_load_verify_unicode_cafile an
 and not test_set_verify_callback_exception and not test_set_verify_callback_reference and not test_set_verify_default_callback \
 and not test_add_extra_chain_cert and not test_use_certificate_chain_file_bytes and not test_use_certificate_chain_file_unicode \
 and not TestConnection and not TestConnectionRecvInto and not TestConnectionSendAll \
-and not test_socket_connect and not test_unexpected_EOF"
+and not test_socket_connect and not test_unexpected_EOF \
+and not test_client_receives_servers_data"
 %endif
 
 %if %{with doc}
