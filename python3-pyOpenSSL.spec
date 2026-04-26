@@ -18,10 +18,10 @@ URL:		https://github.com/pyca/pyopenssl
 %if %(locale -a | grep -q '^C\.utf8$'; echo $?)
 BuildRequires:	glibc-localedb-all
 %endif
-BuildRequires:	python3-devel >= 1:3.7
+BuildRequires:	python3-devel >= 1:3.8
 BuildRequires:	python3-setuptools
 %if %{with tests}
-BuildRequires:	python3-cryptography >= 45.0.7
+BuildRequires:	python3-cryptography >= 46.0.0
 BuildRequires:	python3-cryptography < 47
 BuildRequires:	python3-pretend
 BuildRequires:	python3-pytest >= 3.0.1
@@ -36,6 +36,7 @@ BuildRequires:	rpmbuild(macros) >= 1.714
 BuildRequires:	python3-sphinx_rtd_theme
 BuildRequires:	sphinx-pdg-3
 %endif
+Requires:	python3-modules >= 1:3.8
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
